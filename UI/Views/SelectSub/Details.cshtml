@@ -1,0 +1,29 @@
+﻿@model Model.SelectSub
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>SelectSub</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Student.StuName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Student.StuName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sub.SubName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sub.SubName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SelectSubID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

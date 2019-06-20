@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Model.Sub>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubDM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubTeacher)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassAdress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NeedPeople)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubJJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassPeople)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubDM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubTeacher)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassAdress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NeedPeople)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubJJ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassPeople)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubID })
+        </td>
+    </tr>
+}
+
+</table>

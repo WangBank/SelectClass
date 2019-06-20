@@ -1,0 +1,43 @@
+﻿@model Model.SelectSub
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SelectSub</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StuID, "Student")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("StuID", String.Empty)
+            @Html.ValidationMessageFor(model => model.StuID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubID, "Sub")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SubID", String.Empty)
+            @Html.ValidationMessageFor(model => model.SubID)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

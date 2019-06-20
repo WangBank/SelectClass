@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SelectClassModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SelectClassModelStoreContainer">
+          <EntitySet Name="Class" EntityType="SelectClassModel.Store.Class" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SelectSub" EntityType="SelectClassModel.Store.SelectSub" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Student" EntityType="SelectClassModel.Store.Student" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sub" EntityType="SelectClassModel.Store.Sub" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Teacher" EntityType="SelectClassModel.Store.Teacher" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_SelectSub_Student" Association="SelectClassModel.Store.FK_SelectSub_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="SelectSub" EntitySet="SelectSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectSub_Sub" Association="SelectClassModel.Store.FK_SelectSub_Sub">
+            <End Role="Sub" EntitySet="Sub" />
+            <End Role="SelectSub" EntitySet="SelectSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Class" Association="SelectClassModel.Store.FK_Student_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassForm" />
+          </Key>
+          <Property Name="ClassForm" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClassNum" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SelectSub">
+          <Key>
+            <PropertyRef Name="SelectSubID" />
+          </Key>
+          <Property Name="SelectSubID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StuID" Type="int" Nullable="false" />
+          <Property Name="SubID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StuID" />
+          </Key>
+          <Property Name="StuID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StuName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="StuNum" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="StuPwd" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClassForm" Type="int" Nullable="false" />
+          <Property Name="StuPicture" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sub">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Name="SubID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="SubDM" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="ClassTime" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="NeedPeople" Type="int" Nullable="false" />
+          <Property Name="SubPoint" Type="decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="StartTime" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="SubJJ" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ClassPeople" Type="int" Nullable="false" />
+          <Property Name="ClassAddress" Type="int" Nullable="false" />
+          <Property Name="SubPictures" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TeacherPwd" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TeacherNum" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TeacherPicture" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_SelectSub_Student">
+          <End Role="Student" Type="SelectClassModel.Store.Student" Multiplicity="1" />
+          <End Role="SelectSub" Type="SelectClassModel.Store.SelectSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StuID" />
+            </Principal>
+            <Dependent Role="SelectSub">
+              <PropertyRef Name="StuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectSub_Sub">
+          <End Role="Sub" Type="SelectClassModel.Store.Sub" Multiplicity="1" />
+          <End Role="SelectSub" Type="SelectClassModel.Store.SelectSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sub">
+              <PropertyRef Name="SubID" />
+            </Principal>
+            <Dependent Role="SelectSub">
+              <PropertyRef Name="SubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Class">
+          <End Role="Class" Type="SelectClassModel.Store.Class" Multiplicity="1" />
+          <End Role="Student" Type="SelectClassModel.Store.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassForm" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SelectClassModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SelectClassEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="SelectSub" EntityType="SelectClassModel.SelectSub" />
+          <EntitySet Name="Student" EntityType="SelectClassModel.Student" />
+          <AssociationSet Name="FK_SelectSub_Student" Association="SelectClassModel.FK_SelectSub_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="SelectSub" EntitySet="SelectSub" />
+          </AssociationSet>
+          <EntitySet Name="Class" EntityType="SelectClassModel.Class" />
+          <AssociationSet Name="FK_Student_Class" Association="SelectClassModel.FK_Student_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <EntitySet Name="Teacher" EntityType="SelectClassModel.Teacher" />
+          <EntitySet Name="Sub" EntityType="SelectClassModel.Sub" />
+          <AssociationSet Name="FK_SelectSub_Sub" Association="SelectClassModel.FK_SelectSub_Sub">
+            <End Role="Sub" EntitySet="Sub" />
+            <End Role="SelectSub" EntitySet="SelectSub" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="SelectSub">
+          <Key>
+            <PropertyRef Name="SelectSubID" />
+          </Key>
+          <Property Name="SelectSubID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StuID" Type="Int32" Nullable="false" />
+          <Property Name="SubID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="SelectClassModel.FK_SelectSub_Student" FromRole="SelectSub" ToRole="Student" />
+          <NavigationProperty Name="Sub" Relationship="SelectClassModel.FK_SelectSub_Sub" FromRole="SelectSub" ToRole="Sub" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StuID" />
+          </Key>
+          <Property Name="StuID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StuName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StuNum" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StuPwd" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ClassForm" Type="Int32" Nullable="false" />
+          <Property Name="StuPicture" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="SelectSub" Relationship="SelectClassModel.FK_SelectSub_Student" FromRole="Student" ToRole="SelectSub" />
+          <NavigationProperty Name="Class" Relationship="SelectClassModel.FK_Student_Class" FromRole="Student" ToRole="Class" />
+        </EntityType>
+        <Association Name="FK_SelectSub_Student">
+          <End Role="Student" Type="SelectClassModel.Student" Multiplicity="1" />
+          <End Role="SelectSub" Type="SelectClassModel.SelectSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StuID" />
+            </Principal>
+            <Dependent Role="SelectSub">
+              <PropertyRef Name="StuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassForm" />
+          </Key>
+          <Property Type="Int32" Name="ClassForm" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ClassNum" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="SelectClassModel.FK_Student_Class" FromRole="Class" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Student_Class">
+          <End Type="SelectClassModel.Class" Role="Class" Multiplicity="1" />
+          <End Type="SelectClassModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassForm" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Type="Int32" Name="TeacherID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TeacherName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TeacherPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TeacherNum" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TeacherPicture" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sub">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Type="Int32" Name="SubID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SubName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubDM" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TeacherID" Nullable="false" />
+          <Property Type="String" Name="ClassTime" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="NeedPeople" Nullable="false" />
+          <Property Type="Decimal" Name="SubPoint" Nullable="false" Precision="5" Scale="2" />
+          <Property Type="String" Name="StartTime" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EndTime" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubJJ" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ClassPeople" Nullable="false" />
+          <NavigationProperty Name="SelectSub" Relationship="SelectClassModel.FK_SelectSub_Sub" FromRole="Sub" ToRole="SelectSub" />
+          <Property Type="Int32" Name="ClassAddress" Nullable="false" />
+          <Property Type="String" Name="SubPictures" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_SelectSub_Sub">
+          <End Type="SelectClassModel.Sub" Role="Sub" Multiplicity="1" />
+          <End Type="SelectClassModel.SelectSub" Role="SelectSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sub">
+              <PropertyRef Name="SubID" />
+            </Principal>
+            <Dependent Role="SelectSub">
+              <PropertyRef Name="SubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SelectClassModelStoreContainer" CdmEntityContainer="SelectClassEntities">
+          <EntitySetMapping Name="SelectSub">
+            <EntityTypeMapping TypeName="SelectClassModel.SelectSub">
+              <MappingFragment StoreEntitySet="SelectSub">
+                <ScalarProperty Name="SelectSubID" ColumnName="SelectSubID" />
+                <ScalarProperty Name="StuID" ColumnName="StuID" />
+                <ScalarProperty Name="SubID" ColumnName="SubID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="SelectClassModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StuID" ColumnName="StuID" />
+                <ScalarProperty Name="StuName" ColumnName="StuName" />
+                <ScalarProperty Name="StuNum" ColumnName="StuNum" />
+                <ScalarProperty Name="StuPwd" ColumnName="StuPwd" />
+                <ScalarProperty Name="ClassForm" ColumnName="ClassForm" />
+                <ScalarProperty Name="StuPicture" ColumnName="StuPicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="SelectClassModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassNum" ColumnName="ClassNum" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ClassForm" ColumnName="ClassForm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher">
+            <EntityTypeMapping TypeName="SelectClassModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="TeacherPicture" ColumnName="TeacherPicture" />
+                <ScalarProperty Name="TeacherNum" ColumnName="TeacherNum" />
+                <ScalarProperty Name="TeacherPwd" ColumnName="TeacherPwd" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sub">
+            <EntityTypeMapping TypeName="SelectClassModel.Sub">
+              <MappingFragment StoreEntitySet="Sub">
+                <ScalarProperty Name="SubPictures" ColumnName="SubPictures" />
+                <ScalarProperty Name="ClassAddress" ColumnName="ClassAddress" />
+                <ScalarProperty Name="ClassPeople" ColumnName="ClassPeople" />
+                <ScalarProperty Name="SubJJ" ColumnName="SubJJ" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="SubPoint" ColumnName="SubPoint" />
+                <ScalarProperty Name="NeedPeople" ColumnName="NeedPeople" />
+                <ScalarProperty Name="ClassTime" ColumnName="ClassTime" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="SubDM" ColumnName="SubDM" />
+                <ScalarProperty Name="SubName" ColumnName="SubName" />
+                <ScalarProperty Name="SubID" ColumnName="SubID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

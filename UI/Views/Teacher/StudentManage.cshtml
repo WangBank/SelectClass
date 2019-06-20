@@ -1,0 +1,199 @@
+﻿@model IEnumerable<Model.Student>
+@{
+    Layout = null;
+}
+
+@{
+    string teachername = System.Web.HttpUtility.UrlDecode(Request.Cookies["teacherInfo"]["teacherName"], System.Text.Encoding.UTF8);
+    string teacherpictures = System.Web.HttpUtility.UrlDecode(Request.Cookies["teacherInfo"]["teacherPicture"], System.Text.Encoding.UTF8);
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页 </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="~/Content/UI/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/UI/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/UI/css/fontastic.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="~/Content/UI/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="~/Content/UI/css/custom.css">
+    <link rel="shortcut icon" href="~/Content/UI/img/favicon.ico">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <nav class="navbar">
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <div class="navbar-header">
+                            <a href="/Teacher/Index" class="navbar-brand d-none d-sm-inline-block">
+                                <div class="brand-text d-none d-lg-inline-block"><span>练习生选课系统 </span><strong></strong></div>
+                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>练习生</strong></div>
+                            </a>
+                            <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
+                            <li class="nav-item"><a href="/Login/TeacherIndex" class="nav-link logout"><span class="d-none d-sm-inline">登出</span><i class="fa fa-sign-out"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar">
+                        <img src=@teacherpictures alt="..." class="img-fluid rounded-circle">
+                    </div>
+                    <div class="title">
+                        <h1 class="h4">@teachername</h1>
+                        <p>任课老师</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus-->
+                <span class="heading">菜单</span>
+                <ul class="list-unstyled">
+                    <li><a href="/Teacher/Index"><i class="icon-home"></i>首页 </a></li>
+                                        <li class="active"><a href="#exampledropdownDropdown12" aria-expanded="false" data-toggle="collapse"><i class="icon-padnote"></i>管理 </a>
+                        <ul id="exampledropdownDropdown12" class="collapse list-unstyled ">
+                            <li ><a href="/Teacher/SubManage">课程管理</a></li>
+                            <li class="active"><a href="/Teacher/StudentManage">学生管理</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#exampledropdownDropdown11" aria-expanded="false" data-toggle="collapse"><i class="icon-grid"></i>添加 </a>
+                        <ul id="exampledropdownDropdown11" class="collapse list-unstyled ">
+                            <li><a href="/Teacher/CreateSub">添加课程</a></li>
+                            <li><a href="/Teacher/CreateStudent">添加学生</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/teacher/teacherinfo"><i class="icon-interface-windows"></i>个人信息 </a>
+                    </li>
+                    <li><a href="/Login/Index"><i class="icon-interface-windows"></i>退出登录 </a></li>
+                </ul>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="no-margin-bottom">学生管理</h2>
+                    </div>
+                </header>
+                <div class="breadcrumb-holder container-fluid">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/teacher/index">首页</a></li>
+                        <li class="breadcrumb-item active">学生管理            </li>
+                    </ul>
+
+                </div>
+                <div style="margin-left: 100px; margin-top: 20px; margin-bottom: -40px">
+                    <button id="delete" type="submit" name="deleteSubmit" class="btn btn-primary">删除学生</button>
+                </div>
+                <section class="tables">
+                    <div>
+                        <table class="table" id="table">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>序号</th>
+                                    <th>学生姓名</th>
+                                    <th>学生班级</th>
+                                    <th>学号</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentinfo">
+                                <tr>
+                                    @foreach (var row in Model)
+                                    {
+                                        <tr>
+                                            
+                                        <td><input type="checkbox" checked="checked"></td>
+                                        <td>@row.StuID</td>
+                                        <td>@row.StuName</td>
+                                            @{
+                                                BLL.BLLClass bllClass = new BLL.BLLClass();
+                                                string classname = bllClass.Details(c=>c.ClassForm == row.ClassForm).FirstOrDefault().ClassNum;
+                                                }
+                                        <td>@classname</td>
+                                        <td>@row.StuNum</td>
+                                        </tr> 
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>LXS &copy; 2019</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p>练习生选课管理系统<a href="#" target="_blank" title="选课管理系统"></a> -  from <a href="#" title="学校" target="_blank">湖南工程</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- JavaScript files-->
+            <script src="~/Content/UI/vendor/jquery/jquery.min.js"></script>
+            <script src="~/Content/UI/vendor/popper.js/umd/popper.min.js"> </script>
+            <script src="~/Content/UI/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <script src="~/Content/UI/vendor/jquery.cookie/jquery.cookie.js"> </script>
+            <script src="~/Content/UI/vendor/chart.js/Chart.min.js"></script>
+            <script src="~/Content/UI/vendor/jquery-validation/jquery.validate.min.js"></script>
+            <script src="~/Content/UI/js/charts-home.js"></script>
+            <!-- Main File-->
+            <script src="~/Content/UI/js/front.js"></script>
+            <script type="text/javascript">
+                $(function () {
+                    $(".table input:checkbox").attr("checked", false);
+                    $("#delete").click(deletef);
+                    function deletef() {
+                        var end = confirm("确定删除吗？");
+                        if (end == true) {
+                            var data = [];
+                            $(function () {
+                                $("#table").find(":checkbox:checked").each(function () {
+                                    var val = $(this).parent().next().text();
+                                    data.push(val);
+                                });
+                                $.ajax({
+                                    type: "Post",
+                                    async: true,
+                                    url: "/Teacher/DeleteStudent",
+                                    data: { stuId: data.toString() },
+                                    success: function (msg) {
+                                        if (msg == "ok") {
+                                            window.location.href = "/Teacher/StudentManage";
+                                            alert("删除成功！");
+                                        } else {
+                                            alert(data);
+                                        }
+                                    }
+                                });
+                            });
+                        } else {
+                            window.location.href = "/Teacher/StudentManage";
+                        }
+                    }
+                });
+            </script>
+</body>
+</html>

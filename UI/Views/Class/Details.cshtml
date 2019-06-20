@@ -1,0 +1,36 @@
+﻿@model Model.Class
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Class</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassForm)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassForm)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassNum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassNum)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

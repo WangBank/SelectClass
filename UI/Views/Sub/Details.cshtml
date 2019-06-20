@@ -1,0 +1,92 @@
+﻿@model Model.Sub
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Sub</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubDM)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubDM)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubTeacher)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubTeacher)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassAdress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassAdress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NeedPeople)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NeedPeople)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubPoint)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubPoint)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubJJ)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubJJ)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClassPeople)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClassPeople)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SubID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

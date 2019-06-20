@@ -1,0 +1,115 @@
+﻿@model Model.Sub
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Sub</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubName)
+            @Html.ValidationMessageFor(model => model.SubName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubDM)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubDM)
+            @Html.ValidationMessageFor(model => model.SubDM)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubTeacher)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubTeacher)
+            @Html.ValidationMessageFor(model => model.SubTeacher)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassTime)
+            @Html.ValidationMessageFor(model => model.ClassTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassAdress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassAdress)
+            @Html.ValidationMessageFor(model => model.ClassAdress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NeedPeople)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NeedPeople)
+            @Html.ValidationMessageFor(model => model.NeedPeople)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubPoint)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubPoint)
+            @Html.ValidationMessageFor(model => model.SubPoint)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubJJ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubJJ)
+            @Html.ValidationMessageFor(model => model.SubJJ)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassPeople)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassPeople)
+            @Html.ValidationMessageFor(model => model.ClassPeople)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

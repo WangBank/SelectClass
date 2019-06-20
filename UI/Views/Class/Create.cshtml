@@ -1,0 +1,51 @@
+﻿@model Model.Class
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Class</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassForm)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassForm)
+            @Html.ValidationMessageFor(model => model.ClassForm)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassName)
+            @Html.ValidationMessageFor(model => model.ClassName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClassNum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassNum)
+            @Html.ValidationMessageFor(model => model.ClassNum)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

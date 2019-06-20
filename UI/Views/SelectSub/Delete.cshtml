@@ -1,0 +1,32 @@
+﻿@model Model.SelectSub
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>SelectSub</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Student.StuName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Student.StuName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sub.SubName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sub.SubName)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

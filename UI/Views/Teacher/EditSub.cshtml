@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "修改课程信息";
+}
+
+<h2>修改课程信息</h2>
+@model Model.Sub
+
+@using (Html.BeginForm("EditSub", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>课程信息</legend>
+
+        <div class="editor-field">
+       <input class="text-box single-line" id="subID" name="subID" type="hidden" value=@Model.SubID >
+             <input class="text-box single-line" id="subDM" name="subDM" type="hidden" value=@Model.SubDM >
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">课程名称</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubName)
+            @Html.ValidationMessageFor(model => model.SubName)
+        </div>
+
+        <div class="editor-field">
+           <input class="text-box single-line" id="teacherID" name="teacherID" type="hidden" value=@Model.TeacherID >
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">课程课时</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClassTime)
+            @Html.ValidationMessageFor(model => model.ClassTime)
+        </div>
+
+        <div class="editor-field">
+            <input class="text-box single-line" id="ClassAddress" name="ClassAddress" type="hidden" value=@Model.ClassAddress >
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">课程学分</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubPoint)
+            @Html.ValidationMessageFor(model => model.SubPoint)
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">开始时间</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">结束时间</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+
+        <div class="editor-label">
+           <label for="SubName">课程所需人数</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NeedPeople)
+            @Html.ValidationMessageFor(model => model.NeedPeople)
+        </div>
+
+                <div class="editor-label">
+           <label for="SubName">课程图片</label>
+        </div>
+        <div class="editor-field">
+            <img src=@System.Web.HttpUtility.UrlDecode(Model.SubPictures, System.Text.Encoding.UTF8); alt="..." class="img-fluid">
+             <input name="fileInput" type="file" class="form-control-file"/><label for="fileInput" class="col-sm-3 form-control-label">添加图片</label>
+
+        </div>
+
+        <div class="editor-label">
+            <label for="SubName">课程类型</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubJJ)
+            @Html.ValidationMessageFor(model => model.SubJJ)
+        </div>
+
+        <p>
+            <input type="submit" value="保存" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+
+</script>

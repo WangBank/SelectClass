@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eabda024b40142b1a6ea29c48d2396da" Name="关系图1">
+        <EntityTypeShape EntityType="SelectClassModel.SelectSub" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SelectClassModel.Student" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="SelectClassModel.FK_SelectSub_Student" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SelectClassModel.Class" Width="1.5" PointX="6.035787929797447" PointY="12.039866527561037" />
+        <AssociationConnector Association="SelectClassModel.FK_Student_Class" />
+        <EntityTypeShape EntityType="SelectClassModel.Teacher" Width="1.5" PointX="12.125" PointY="8.25" />
+        <EntityTypeShape EntityType="SelectClassModel.Sub" Width="1.5" PointX="5.0671932087592753" PointY="13.30431128167748" />
+        <AssociationConnector Association="SelectClassModel.FK_SelectSub_Sub" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
