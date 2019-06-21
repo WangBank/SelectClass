@@ -1,69 +1,44 @@
-﻿@model Model.Teacher
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <input id="fileSelector" type="file">
+    <input type="button" name="" id="btn" value="tijaio" />
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+     $("#btn").click(function () {
+        var file = document.getElementById('fileSelector').files[0];
+        var filename = file.name;
+        var data = { "isUp": "1", "fileFullName": filename };
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(data),
+            url: "http://oa.romens.cn:8087/FileSign",
+            success: function (data) {
+                var url = data.url;
+                var xhr = new XMLHttpRequest();
 
-@{
-    ViewBag.Title = "Edit";
-}
+                xhr.open("put", url, true);
 
-<h2>Edit</h2>
+                xhr.onload = function () {
+                    if (xhr.status === 200 || xhr.status === 206) {
+                        var ETag = xhr.getResponseHeader('etag');
+                        console.log("上传成功！");
+                    } else {
+                        callback('文件 ' + Key + ' 上传失败，状态码：' + xhr.status);
+                    }
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+                };
 
-    <fieldset>
-        <legend>Teacher</legend>
-
-        @Html.HiddenFor(model => model.TeacherID)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeacherName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TeacherName)
-            @Html.ValidationMessageFor(model => model.TeacherName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeacherPwd)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TeacherPwd)
-            @Html.ValidationMessageFor(model => model.TeacherPwd)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SubID, "Sub")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("SubID", String.Empty)
-            @Html.ValidationMessageFor(model => model.SubID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeacherNum)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TeacherNum)
-            @Html.ValidationMessageFor(model => model.TeacherNum)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeacherPicture)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TeacherPicture)
-            @Html.ValidationMessageFor(model => model.TeacherPicture)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                xhr.send(file);
+            }
+        })
+    })
+</script>
+</html>

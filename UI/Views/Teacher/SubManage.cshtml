@@ -124,8 +124,9 @@
 
                 </div>
                 <div style="margin-left: 100px; margin-top: 20px; margin-bottom: -40px">
-                    <button type="submit" id="delete" class="btn btn-primary">删除课程</button>
                     <button type="submit" id="edit" class="btn btn-primary">修改课程</button>
+                    <button type="submit" id="delete" class="btn btn-primary">删除课程</button>
+                    <button type="submit" id="export" class="btn btn-primary">导出表格</button>
                 </div>
                 <section class="tables">
                     <div>
@@ -146,7 +147,7 @@
                                     <th>已选人数</th>
                                     <th>课程类型</th>
                                     <th>课程状态</th>
-
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -186,6 +187,7 @@
                                        
                                             }
                                             <td>@state</td>
+                                            <td><a href="/teacher/ExportExcel?subID=@row.SubID">导出excel</a></td>
                                         </tr> 
                                     }
                                 </tr>
@@ -262,7 +264,8 @@
                                 data.push(val);
                             });
                             if (data.length == 1) {
-                                window.location.href = "/Teacher/EditSub?subId=" + data.toString();
+                                //window.location.href = "/Teacher/EditSub?subId=" + data.toString();
+                                window.open("/Teacher/EditSub?subId=" + data.toString(), "_blank", 'height=600,width=600,status=yes,top=200,left=400,toolbar=no,menubar=no,location=no');
                             }
                             else {
                                 window.location.href = "/Teacher/SubManage";

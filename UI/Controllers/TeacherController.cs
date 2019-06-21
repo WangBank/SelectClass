@@ -9,6 +9,8 @@ using Model;
 using BLL;
 using System.Collections;
 using System.IO;
+using System.Web.UI;
+using NPOI.HSSF.UserModel;
 
 namespace UI.Controllers
 {
@@ -19,6 +21,7 @@ namespace UI.Controllers
         private BLLClass bllClass = new BLLClass();
         private BLLTeacher bllTeacher = new BLLTeacher();
         public BLLSub bllSub = new BLLSub();
+        public BLLSelectSub selectSub = new BLLSelectSub();
         public ActionResult Index()
         {
             try
@@ -63,7 +66,7 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateSub(string subName, string teacherID, string subTime, string subPoint, string subBegintime, string subEndtime, string subPeople, string optionsRadios, string ClassForm, string subDM)
+        public void CreateSub(string subName, string teacherID, string subTime, string subPoint, string subBegintime, string subEndtime, string subPeople, string optionsRadios, string ClassForm, string subDM)
         {
             Sub sub = new Sub();
             HttpPostedFileBase file = Request.Files["fileInput"];
@@ -75,29 +78,40 @@ namespace UI.Controllers
             }
             if (ModelState.IsValid)
             {
-                
-                sub.SubName = subName;
-                sub.SubDM = subDM;
-                sub.ClassAddress = int.Parse(ClassForm);
-                sub.TeacherID = int.Parse(teacherID);
-                sub.ClassTime = subTime;
-                sub.NeedPeople = int.Parse(subPeople);
-                sub.SubPoint = int.Parse(subPoint);
-                sub.StartTime = subBegintime;
-                sub.EndTime = subEndtime;
-                if (optionsRadios == "option1")
-                {
-                    sub.SubJJ = "考试课程";
+                if (DateTime.Parse(subBegintime) > DateTime.Parse(subEndtime)) {
+                    Response.Write("<script language='JavaScript'>alert('起始日期不能大于截至日期');history.go(-1);</script>");
+                    return;
+                }
+                else if (DateTime.Parse(subBegintime) < DateTime.Now) {
+                    Response.Write("<script language='JavaScript'>alert('起始日期不能小于当前日期');history.go(-1);</script>");
+                    return;
                 }
                 else
                 {
-                    sub.SubJJ = "考察课程";
+                    sub.SubName = subName;
+                    sub.SubDM = subDM;
+                    sub.ClassAddress = int.Parse(ClassForm);
+                    sub.TeacherID = int.Parse(teacherID);
+                    sub.ClassTime = subTime;
+                    sub.NeedPeople = int.Parse(subPeople);
+                    sub.SubPoint = int.Parse(subPoint);
+                    sub.StartTime = subBegintime;
+                    sub.EndTime = subEndtime;
+                    if (optionsRadios == "option1")
+                    {
+                        sub.SubJJ = "考试课程";
+                    }
+                    else
+                    {
+                        sub.SubJJ = "考察课程";
+                    }
+                    bllSub.Add(sub);
+                    bllSub.SaveChange();
                 }
-                bllSub.Add(sub);
-                bllSub.SaveChange();
+                //跳转到学生管理页面
+                RedirectToAction("SubManage");
             }
-            //跳转到学生管理页面
-            return RedirectToAction("SubManage");
+               
         }
 
         public ActionResult SubManage() {
@@ -126,7 +140,7 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditSub(string subID, string subName, string teacherID, string ClassTime, string subPoint, string StartTime, string EndTime, string NeedPeople, string ClassAddress, string SubJJ, string SubDM)
+        public void EditSub(string subID, string subName, string teacherID, string ClassTime, string subPoint, string StartTime, string EndTime, string NeedPeople, string ClassAddress, string SubJJ, string SubDM)
         {
             Sub sub = new Sub();
             HttpPostedFileBase file = Request.Files["fileInput"];
@@ -136,23 +150,49 @@ namespace UI.Controllers
                 file.SaveAs(filename);
                 sub.SubPictures = System.Web.HttpUtility.UrlEncode(Path.Combine("/Pictures/Subs", file.FileName), System.Text.Encoding.UTF8);
             }
-            if (ModelState.IsValid)
+            try
             {
-                sub.SubDM = SubDM;
-                sub.SubID = int.Parse(subID);
-                sub.SubName = subName;
-                sub.ClassAddress = int.Parse(ClassAddress);
-                sub.TeacherID = int.Parse(teacherID);
-                sub.ClassTime = ClassTime;
-                sub.NeedPeople = int.Parse(NeedPeople);
-                sub.SubPoint = Decimal.Parse(subPoint);
-                sub.StartTime = StartTime;
-                sub.EndTime = EndTime;
-                sub.SubJJ = SubJJ;
-                bllSub.Edit(sub);
-                bllSub.SaveChange();
+                if (ModelState.IsValid)
+                {
+
+                    if (DateTime.Parse(StartTime) > DateTime.Parse(EndTime))
+                    {
+                        Response.Write("<script language='JavaScript'>alert('起始日期不能大于截至日期');history.go(-1);</script>");
+                        return;
+                    }
+                    else if (DateTime.Parse(StartTime) < DateTime.Now)
+                    {
+                        Response.Write("<script language='JavaScript'>alert('起始日期不能小于当前日期');history.go(-1);</script>");
+                        return;
+                    }
+                    else
+                    {
+                        sub.SubDM = SubDM;
+                        sub.SubID = int.Parse(subID);
+                        sub.SubName = subName;
+                        sub.ClassAddress = int.Parse(ClassAddress);
+                        sub.TeacherID = int.Parse(teacherID);
+                        sub.ClassTime = ClassTime;
+                        sub.NeedPeople = int.Parse(NeedPeople);
+                        sub.SubPoint = Decimal.Parse(subPoint);
+                        sub.StartTime = StartTime;
+                        sub.EndTime = EndTime;
+                        sub.SubJJ = SubJJ;
+                        bllSub.Edit(sub);
+                        bllSub.SaveChange();
+                    }
+                }
+                Response.Write("<script language='JavaScript'>alert('修改完毕，刷新后查看结果！');window.close();window.opener.reload();</script>");
             }
-            return RedirectToAction("SubManage");
+            catch {
+                Response.Write("<script language='JavaScript'>alert('请输入正确的日期格式！');history.go(-1);</script>");
+                return;
+            }
+        }
+
+        public ActionResult Edit() {
+
+            return View();
         }
         public ActionResult CreateStudent()
         {
@@ -176,6 +216,43 @@ namespace UI.Controllers
             //跳转到学生管理页面
             return RedirectToAction("StudentManage");
         }
+
+        public ActionResult ExportExcel(int subID) {
+            List<Student> students = new List<Student>();
+            var studentsid =  selectSub.GetAll().Where(c => c.SubID == subID);
+            foreach (var item in studentsid)
+            {
+                students.Add(bLLStudent.Details(c=>c.StuID == item.StuID).FirstOrDefault());
+            }
+            MemoryStream stream = new MemoryStream();
+            var workbook = new HSSFWorkbook();
+            var sheet = workbook.CreateSheet();
+            var headerRow = sheet.CreateRow(0);
+            headerRow.CreateCell(0).SetCellValue("ID");
+            headerRow.CreateCell(1).SetCellValue("学生姓名");
+            headerRow.CreateCell(2).SetCellValue("学生学号");
+            headerRow.CreateCell(3).SetCellValue("学生班级");
+            for (int i = 0; i < students.Count; i++)
+            {
+                foreach (var item in students)
+                {
+                    var newRow = sheet.CreateRow(i + 1);
+                    newRow.CreateCell(0).SetCellValue(item.StuID);
+                    newRow.CreateCell(1).SetCellValue(item.StuName);
+                    newRow.CreateCell(2).SetCellValue(item.StuNum);
+                    newRow.CreateCell(3).SetCellValue(bllClass.Details(c=>c.ClassForm == item.ClassForm).FirstOrDefault().ClassNum);
+                }
+            }
+
+            workbook.Write(stream);
+            stream.Flush();
+            stream.Position = 0;
+            sheet = null;
+            headerRow = null;
+            workbook = null;
+            return File(stream,"application/vnd.ms-excel","选择" + bllSub.Details(c=>c.SubID == subID).FirstOrDefault().SubName + "此课程的学生信息.xls");
+        }
+
         [HttpPost]
         public ActionResult EditInfo(string password)
         {
@@ -202,33 +279,6 @@ namespace UI.Controllers
             }
             
         }
-
-        //[HttpPost]
-        //public ActionResult UploadFile()
-        //{
-        //    HttpPostedFileBase file = Request.Files["fileInput"];
-        //    if (file != null)
-        //    {
-        //        try
-        //        {
-        //            var filename = Path.Combine(Server.MapPath("~/Pictures/Teachers"), file.FileName);
-        //            file.SaveAs(filename);
-        //            return Content("上传成功");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return Content(string.Format("上传文件出现异常：{0}", ex.Message));
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        return Content("没有文件需要上传！");
-        //    }
-        //}
-
-        //
-        // GET: /Teacher/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -261,9 +311,17 @@ namespace UI.Controllers
         {
             string[] stuids;
             stuids = stuId.Split(',');
+            int nowid = 0;
             for (int i = 0; i < stuids.Length; i++)
             {
-                bLLStudent.Delete(int.Parse(stuids[i]));
+                nowid = int.Parse(stuids[i]);
+                if (selectSub.Details(c=>c.StuID== nowid).Count()!=0){
+                    return Content("该学生已经学过课程，不能删除！！");
+                }
+                else
+                {
+                    bLLStudent.Delete(nowid);
+                }
             }
             bLLStudent.SaveChange();
             return Content("ok");

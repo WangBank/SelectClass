@@ -104,5 +104,8 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script type="text/javascript">
-
+    window.onunload = function () {
+        //刷新父页面
+        window.opener.reload();
+    }
 </script>

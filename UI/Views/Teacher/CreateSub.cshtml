@@ -166,22 +166,23 @@
                                                     <label for="register-email" class="label-material">课程学时</label>
                                                 </div>
                                                 @{
-                                List<SelectListItem> listProductTypes = ViewData["ClassForm"] as List<SelectListItem>;
-                                                    }
-@*                                                <div class="form-group-material">
-                                                    <input id="register-room" type="text" name="subRoom" required class="input-material">
-                                                    <label for="register-email" class="label-material">上课教室</label>
-                                                </div>*@
+                                                    List<SelectListItem> listProductTypes = ViewData["ClassForm"] as List<SelectListItem>;
+                                                }
+                                                @*                                                <div class="form-group-material">
+            <input id="register-room" type="text" name="subRoom" required class="input-material">
+            <label for="register-email" class="label-material">上课教室</label>
+        </div>*@
 
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 form-control-label">上课教室</label>
 
                                                     <div class="col-sm-9">
-                                                        @Html.DropDownList("ClassForm", listProductTypes, new {
-                                                   datatype=@"/^[1-9]+$/",
-                                                    sucmsg=" ",
-                                                    nullmsg="请选择上课教室",
-                                                     errormsg="请选择上课教室"
+                                                        @Html.DropDownList("ClassForm", listProductTypes, new
+                                                        {
+                                                   datatype = @"/^[1-9]+$/",
+                                                    sucmsg = " ",
+                                                    nullmsg = "请选择上课教室",
+                                                     errormsg = "请选择上课教室"
                                                    })
                                                     </div>
 
@@ -192,13 +193,23 @@
                                                     <label for="register-email" class="label-material">课程学分</label>
                                                 </div>
                                                 <div class="form-group-material">
+                                                    <input id="register-classBegin" type="date"   name="subBegintime" required class="input-material"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn',maxDate:'%y-%M-%d',minDate:'%y-%M-<%=a%>{%d-2}'})"  
+    onchange="checkNull('starttime')">
+                                                    <label for="register-email" class="label-material">开课时间</label>
+                                                </div>
+                                                <div class="form-group-material">
+                                                    <input id="register-classEnd" type="date" name="subEndtime" required class="input-material" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn',maxDate:'%y-%M-%d',minDate:'%y-%M-<%=a%>{%d-2}'})"  
+    onchange="checkNull('starttime')">
+                                                    <label for="register-email" class="label-material">结课时间</label>
+                                                </div>
+                                                @*<div class="form-group-material">
                                                     <input id="register-classBegin" type="text" name="subBegintime" required class="input-material">
                                                     <label for="register-email" class="label-material">开课时间</label>
                                                 </div>
                                                 <div class="form-group-material">
                                                     <input id="register-classEnd" type="text" name="subEndtime" required class="input-material">
                                                     <label for="register-email" class="label-material">结课时间</label>
-                                                </div>
+                                                </div>*@
                                                 <div class="form-group-material">
                                                     <input id="register-number" type="text" name="subPeople" required class="input-material">
                                                     <label for="register-email" class="label-material">需要人数</label>
@@ -206,7 +217,7 @@
                                                 <div class="form-group row">
                                                     <label for="fileInput" class="col-sm-3 form-control-label">添加图片</label>
                                                     <div class="col-sm-9">
-                                                        <input name="fileInput" type="file" class="form-control-file"/>
+                                                        <input name="fileInput" type="file" class="form-control-file" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
